@@ -51,13 +51,16 @@ const io = new Server(server,{
   }) ;
 
 io.on("connection", (socket: any) => {
+    console.log("id", socket.id);
+    
     socket.on("specific-room", (topic: string) => {
       const room = rooms.find((e:IRoomsDetails) => e.roomTopic === topic);
       socket.join(topic);
       if(room){
-            socket.emit("send-code", room.roomCode)
+            socket.emit("send-code", room.roomCode);
+            socket.emit("mentor-id", room.mentorId);
             room.amountOfUsers = room.amountOfUsers + 1;
-            if (room.amountOfUsers === 1 ||room.amountOfUsers === 0 ) {
+            if (room.amountOfUsers === 1) {
               room.mentorId = socket.id;
             }
         }
@@ -75,7 +78,7 @@ io.on("connection", (socket: any) => {
 
 socket.on('disconnect',()=>{
     const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
-    if(room){
+    if(room && room.amountOfUsers > 0){
         room.amountOfUsers = room.amountOfUsers - 1;
     }
     console.log('disconnect',room);
