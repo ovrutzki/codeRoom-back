@@ -95,7 +95,6 @@ export const socketConnection = () => {
       }
     });
 
-
     socket.on("disconnect", () => {
       // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       if(room){
