@@ -89,6 +89,7 @@ export const socketConnection = () => {
     socket.on("user-typing", (code: string, topic: string) => {
       // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       if (room) {
+        console.log("code",code);
         room.roomCode = code.split("\n");
         socket.to(topic).emit("send-code", room.roomCode);
       }
