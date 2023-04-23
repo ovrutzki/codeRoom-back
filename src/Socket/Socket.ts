@@ -90,7 +90,7 @@ export const socketConnection = () => {
       // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       if (room) {
         console.log("code",code);
-        room.roomCode = code.split("\n");
+        // room.roomCode = code.split("\n");
         socket.to(topic).emit("send-code", room.roomCode);
       }
     });
