@@ -43,7 +43,7 @@ export const socketConnection = () => {
       (r) => r.roomTopic === socket.handshake.query.roomTopic
     );
     const ip = socket.handshake.headers['x-forwarded-for'].split(',')[0];
-    console.log("ipAddress", ip);
+    
     if((room?.clientConnect.findIndex((e) =>e===ip)) === -1)
     room?.clientConnect.push(ip);
     console.log("clients",room?.clientConnect);
