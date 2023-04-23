@@ -52,7 +52,6 @@ export const socketConnection = () => {
     socket.emit("ip-address", ip);
 
     socket.on("specific-room", (topic: string) => {
-      // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       socket.join(topic);
       if (room) {
         if (room.clientConnect[0] === ip) {
@@ -68,7 +67,6 @@ export const socketConnection = () => {
     });
 
     socket.on("not-mentor", () => {
-      // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       if (room) {
         room.mentorId = "";
         room.amountOfUsers = 0;
@@ -87,7 +85,6 @@ export const socketConnection = () => {
 
 
     socket.on("user-typing", (code: string[], topic: string) => {
-      // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       if (room) {
         room.roomCode = code;
         socket.broadcast.to(topic).emit("send-code", room.roomCode);
@@ -95,7 +92,6 @@ export const socketConnection = () => {
     });
 
     socket.on("disconnect", () => {
-      // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       if(room){
         const ipIndex = room.clientConnect.findIndex((e)=> e===ip)
         console.log("disconnect" , room.clientConnect[ipIndex]);
