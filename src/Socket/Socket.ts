@@ -78,6 +78,7 @@ export const socketConnection = () => {
             const clientId = room.clientConnect.splice(ipIndex,1)[0];
             room.clientConnect.unshift(clientId)
         }
+        socket.emit('not-mentor')
     })
 
     socket.on("user-typing", (code: string, topic: string) => {
