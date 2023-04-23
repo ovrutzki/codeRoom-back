@@ -36,11 +36,13 @@ export const socketConnection = () => {
       methods: ["GET", "POST"],
     },
   });
-
+  
+  
   io.on("connection", (socket: any) => {
     const room = rooms.find(
       (r) => r.roomTopic === socket.handshake.query.roomTopic
     );
+    console.log("test", socket.handshake.headers['x-forwarded-for'].split(',')[0]);
     const ip = socket.handshake.address;
     console.log("ipAddress", ip);
     if((room?.clientConnect.findIndex((e) =>e===ip)) === -1)
