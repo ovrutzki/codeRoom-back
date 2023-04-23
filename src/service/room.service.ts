@@ -9,3 +9,13 @@ export const getRooms = async () => {
       throw err;
     }
   };
+
+export const codeSaving = async (roomCode:string[],roomName:string) => {
+    try {
+      const rooms = await RoomModel.findOneAndUpdate({roomName:roomName}, {$set:{value:roomCode}});      
+      return rooms;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
