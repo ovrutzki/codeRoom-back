@@ -37,7 +37,7 @@ export const socketConnection = () => {
     },
   });
   
-  
+
   io.on("connection", (socket: any) => {
     const room = rooms.find(
       (r) => r.roomTopic === socket.handshake.query.roomTopic
@@ -81,6 +81,7 @@ export const socketConnection = () => {
         socket.to(room?.roomTopic).emit('not-mentor')
     })
 
+
     socket.on("user-typing", (code: string, topic: string) => {
       // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       if (room) {
@@ -88,6 +89,7 @@ export const socketConnection = () => {
         socket.to(topic).emit("send-code", room.roomCode);
       }
     });
+
 
     socket.on("disconnect", () => {
       // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
