@@ -46,6 +46,8 @@ export const socketConnection = () => {
     console.log("ipAddress", ip);
     if((room?.clientConnect.findIndex((e) =>e===ip)) === -1)
     room?.clientConnect.push(ip);
+    console.log("clients",room?.clientConnect);
+    
     // send the ip address to the client:
     socket.emit("ip-address", ip);
 
@@ -55,6 +57,8 @@ export const socketConnection = () => {
       if (room) {
         if (room.clientConnect[0] === ip) {
           room.mentorId = ip;
+          console.log(ip, "cc", room.mentorId);
+          
         }
         socket.emit("send-code", room.roomCode);
         socket.emit("mentor-id", room.mentorId);
@@ -95,7 +99,8 @@ export const socketConnection = () => {
       // const room = rooms.find((r) => r.roomTopic === socket.handshake.query.roomTopic);
       if(room){
         const ipIndex = room.clientConnect.findIndex((e)=> e===ip)
-
+        console.log("disconnect" , room.clientConnect[ipIndex]);
+        
         delete room.clientConnect[ipIndex]
       }
     //   if (room && room.amountOfUsers > 1) {
