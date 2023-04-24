@@ -59,7 +59,7 @@ export const socketConnection = () => {
           console.log(ip, "cc", room.mentorId);
           
         }
-        socket.emit("send-code", room.roomCode);
+        socket.emit("send-code", room.roomCode, 'DataBase');
         socket.emit("mentor-id", room.mentorId);
         room.amountOfUsers = room.amountOfUsers + 1;
         console.log("++1", room.roomTopic, room.amountOfUsers);
@@ -84,10 +84,11 @@ export const socketConnection = () => {
     })
 
 
-    socket.on("user-typing", (code: string[], topic: string) => {
+    socket.on("user-typing", (code: string[],userName:string ,topic: string) => {
       if (room) {
         room.roomCode = code;
-        socket.broadcast.to(topic).emit("send-code", code);
+        console.log(userName);
+        socket.broadcast.to(topic).emit("send-code", code, userName);
       }
     });
 
