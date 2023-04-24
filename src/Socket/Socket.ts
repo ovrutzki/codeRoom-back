@@ -87,7 +87,6 @@ export const socketConnection = () => {
     socket.on("user-typing", (code: string[], topic: string) => {
       if (room) {
         room.roomCode = code;
-        console.log("code",code);    
         socket.broadcast.to(topic).emit("send-code", code);
       }
     });
